@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const scoreDisplay = document.querySelector("#score");
     const linesDisplay = document.querySelector("#lines");
     const startBtn = document.querySelector("#start-button");
-    const displaySquares = document.querySelectorAll(".mini-grid div");
+    const displaySquares = document.querySelectorAll(".tetro-grid div");
     const displayIndex = 0;
 
     let nextRandom = 0;

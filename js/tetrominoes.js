@@ -1,6 +1,6 @@
 const width = 10;
 const displayWidth = 4;
-const colors = [ "orange", "red", "purple", "green", "blue" ];
+const colors = ["orange", "red", "purple", "green", "blue"];
 
 const lTetromino = [
     [1, width + 1, width * 2 + 1, 2],
@@ -24,10 +24,10 @@ const tTetromino = [
 ];
 
 const oTetromino = [
-    [0, 1, width, width + 1],
-    [0, 1, width, width + 1],
-    [0, 1, width, width + 1],
-    [0, 1, width, width + 1],
+    [width + 1, width + 2, width * 2 + 1, width * 2 + 2],
+    [width + 1, width + 2, width * 2 + 1, width * 2 + 2],
+    [width + 1, width + 2, width * 2 + 1, width * 2 + 2],
+    [width + 1, width + 2, width * 2 + 1, width * 2 + 2]
 ];
 
 const iTetromino = [
@@ -48,8 +48,7 @@ const theTetrominoes = [
 const upNextTetrominoes = [
     [1, displayWidth + 1, displayWidth * 2 + 1, 2],
     [displayWidth + 1, displayWidth + 2, displayWidth * 2, displayWidth * 2 + 1],
-    [1, displayWidth, displayWidth + 1, displayWidth + 2],
-    [0, 1, displayWidth, displayWidth + 1],
+    [displayWidth + 1, displayWidth * 2, displayWidth * 2 + 1, displayWidth * 2 + 2],
+    [displayWidth + 1, displayWidth + 2, displayWidth * 2 + 1, displayWidth * 2 + 2],
     [1, displayWidth + 1, displayWidth * 2 + 1, displayWidth * 3 + 1],
-    [1, displayWidth + 1, displayWidth * 2 + 1, displayWidth * 3 + 1]
 ];
