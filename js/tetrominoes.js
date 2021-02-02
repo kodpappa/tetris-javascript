@@ -1,5 +1,6 @@
 const width = 10;
 const displayWidth = 4;
+const colors = [ "orange", "red", "purple", "green", "blue" ];
 
 const lTetromino = [
     [1, width + 1, width * 2 + 1, 2],
