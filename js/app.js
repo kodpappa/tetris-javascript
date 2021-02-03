@@ -4,6 +4,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const scoreDisplay = document.querySelector("#score");
     const linesDisplay = document.querySelector("#lines");
     const startBtn = document.querySelector("#start-button");
+    const rotateBtn = document.querySelector("#up-button");
+    const leftBtn = document.querySelector("#left-button");
+    const rightBtn = document.querySelector("#right-button");
+    const downBtn = document.querySelector("#down-button");
     const displaySquares = document.querySelectorAll(".tetro-grid div");
     const displayIndex = 0;
 
@@ -16,16 +20,16 @@ document.addEventListener("DOMContentLoaded", () => {
     let score = 0;
     let lines = 0;
 
-
     function draw() {
-        current.forEach(index => {
+        current.forEach((index) => {
             squares[currentPosition + index].classList.add("tetromino");
-            squares[currentPosition + index].style.backgroundColor = colors[random];
+            squares[currentPosition + index].style.backgroundColor =
+                colors[random];
         });
     }
 
     function unDraw() {
-        current.forEach(index => {
+        current.forEach((index) => {
             squares[currentPosition + index].classList.remove("tetromino");
             squares[currentPosition + index].style.backgroundColor = "";
         });
@@ -51,21 +55,26 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function freeze() {
-
-        if (current.some(index => squares[currentPosition + index + width].classList.contains("taken"))) {
+        if (
+            current.some((index) =>
+                squares[currentPosition + index + width].classList.contains(
+                    "taken"
+                )
+            )
+        ) {
             current.forEach((index) => {
-                squares[currentPosition + index].classList.add("taken")
+                squares[currentPosition + index].classList.add("taken");
             });
 
             addScore();
-            
+
             random = nextRandom;
             nextRandom = Math.floor(Math.random() * theTetrominoes.length);
             current = theTetrominoes[random][currentRotation];
             currentPosition = 4;
             draw();
             displayShape();
-            
+
             gameOver();
         }
     }
@@ -95,13 +104,19 @@ document.addEventListener("DOMContentLoaded", () => {
     function moveRight() {
         unDraw();
 
-        const isRightEdge = current.some((index) => (currentPosition + index) % width === 9);
+        const isRightEdge = current.some(
+            (index) => (currentPosition + index) % width === 9
+        );
 
         if (!isRightEdge) {
             currentPosition += 1;
         }
 
-        if (current.some((index) => squares[currentPosition + index].classList.contains("taken"))) {
+        if (
+            current.some((index) =>
+                squares[currentPosition + index].classList.contains("taken")
+            )
+        ) {
             currentPosition -= 1;
         }
 
@@ -130,7 +145,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
         upNextTetrominoes[nextRandom].forEach((index) => {
             displaySquares[displayIndex + index].classList.add("tetromino");
-            displaySquares[displayIndex + index].style.backgroundColor = colors[nextRandom];
+            displaySquares[displayIndex + index].style.backgroundColor =
+                colors[nextRandom];
         });
     }
 
@@ -147,13 +163,39 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
+    rotateBtn.addEventListener("click", () => {
+        rotate();
+    });
+    leftBtn.addEventListener("click", () => {
+        moveLeft();
+    });
+    rightBtn.addEventListener("click", () => {
+        moveRight();
+    });
+    downBtn.addEventListener("click", () => {
+        moveDown();
+    });
+
     function addScore() {
         let linesCleared = 0;
-        
-        for (let i = 0; i < 199; i += width) {
-            const row = [ i, i + 1, i + 2, i + 3, i + 4, i + 5, i + 6, i + 7, i + 8, i + 9 ];
 
-            if (row.every((index) => squares[index].classList.contains("taken"))) {
+        for (let i = 0; i < 199; i += width) {
+            const row = [
+                i,
+                i + 1,
+                i + 2,
+                i + 3,
+                i + 4,
+                i + 5,
+                i + 6,
+                i + 7,
+                i + 8,
+                i + 9,
+            ];
+
+            if (
+                row.every((index) => squares[index].classList.contains("taken"))
+            ) {
                 linesCleared += 1;
 
                 row.forEach((index) => {
@@ -163,27 +205,31 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
                 const squaresRemoved = squares.splice(i, width);
                 squares = squaresRemoved.concat(squares);
-                squares.forEach(cell => grid.appendChild(cell));
+                squares.forEach((cell) => grid.appendChild(cell));
             }
         }
 
-        if(linesCleared === 1) {
+        if (linesCleared === 1) {
             score += 40;
-        } else if(linesCleared === 2) {
+        } else if (linesCleared === 2) {
             score += 100;
-        } else if(linesCleared === 3) {
+        } else if (linesCleared === 3) {
             score += 300;
-        } else if(linesCleared === 4) {
+        } else if (linesCleared === 4) {
             score += 1200;
         }
-        
+
         scoreDisplay.innerHTML = score;
         lines += linesCleared;
         linesDisplay.innerHTML = lines;
     }
 
     function gameOver() {
-        if(current.some(index => squares[currentPosition + index].classList.contains("taken"))) {
+        if (
+            current.some((index) =>
+                squares[currentPosition + index].classList.contains("taken")
+            )
+        ) {
             scoreDisplay.innerHTML = "Game over";
             clearInterval(timerId);
             document.removeEventListener("keydown", control);
