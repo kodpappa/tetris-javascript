@@ -132,7 +132,16 @@ document.addEventListener("DOMContentLoaded", () => {
             currentRotation = 0;
         }
 
-        current = theTetrominoes[random][currentRotation];
+        var candidate = theTetrominoes[random][currentRotation];
+
+        if((current.some((index) => (currentPosition + index) % width === 0) && candidate.some((index) => (currentPosition + index) % width === 9)) ||
+            (current.some((index) => (currentPosition + index) % width === 9) && candidate.some((index) => (currentPosition + index) % width === 0)))
+        {  
+        }
+        else
+        {
+            current = candidate;
+        }
 
         draw();
     }
@@ -235,4 +244,6 @@ document.addEventListener("DOMContentLoaded", () => {
             document.removeEventListener("keydown", control);
         }
     }
+
+
 });
